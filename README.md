@@ -33,6 +33,12 @@ factory
 
 Each node in the tree has an "address" (e.g., `factory.process.production.start` or `factory.timeclock`). You can subscribe to a specific event by its address and provide a callback function.
 
+## Installation
+
+```bash
+npm i @tomdionysus/event-tree
+```
+
 ## Attaching Event Listeners
 
 To subscribe to an event, use `on` or `addEventListener`:
