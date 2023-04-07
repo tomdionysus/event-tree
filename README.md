@@ -30,21 +30,7 @@ factory
 
 Each node in the tree has an "address" (e.g., `factory.process.production.start` or `factory.timeclock`). You can subscribe to a specific event by its address and provide a callback function.
 
-## Triggering (Dispatching) Events
-
-When you trigger an event, all handlers in the event's route are also called. For example:
-
-```javascript
-trigger('factory.security.signIn', context)
-```
-
-The following events' listeners will be called:
-
-* `factory`
-* `factory.security`
-* `factory.security.signIn`
-
-# Attaching Event Listeners
+## Attaching Event Listeners
 
 To subscribe to an event, use `on` or `addEventListener`:
 
@@ -54,13 +40,41 @@ on(eventName, [options], handler)
 
 The handler function will be called with these parameters: `handler({ eventName: <original eventName>, context: <context from trigger>, options: <options from on> })`
 
-# Removing Event Listeners
+## Removing Event Listeners
 
 To unsubscribe from an event, use unon or removeEventListener:
 
 ```javascript
 unon(eventName, [options], handler)
 ```
+
+## Triggering (Dispatching) Events
+
+When you trigger an event, all handlers in the event's route are also called. For example:
+
+```javascript
+trigger('factory.security.signIn', context)
+```
+
+The following event's listeners will be called:
+
+* `factory`
+* `factory.security`
+* `factory.security.signIn`
+
+## Propogation
+
+If any handler returns explictly `false`, all downline events will not be triggered. For example: 
+
+```javascript
+trigger('factory.security.signIn', context)
+```
+
+Event listeners are registered on the following events:
+
+* `factory` - returns null
+* `factory.security` - returns false
+* `factory.security.signIn` - These handlers will not be called, because a handler on `factory.security` returned false.
 
 ## License
 
