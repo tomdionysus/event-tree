@@ -1,4 +1,4 @@
-# event-tree: A Tree-Based Event System for JavaScript
+# event-tree: A Hierarchical Event System
 
 event-tree is a JavaScript library designed to facilitate the organization and management of events using a hierarchical tree structure. The library allows developers to easily subscribe and unsubscribe event listeners, as well as trigger events throughout the tree. By organizing events in a tree, the library helps developers visualize and manage event relationships more effectively. event-tree supports adding and removing event listeners, triggering events, and pruning unused nodes, making it an efficient and practical solution for event-driven applications.
 
@@ -61,3 +61,11 @@ To unsubscribe from an event, use unon or removeEventListener:
 ```javascript
 unon(eventName, [options], handler)
 ```
+
+## License
+
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for details.
+
+## Contributor Code Of Conduct
+
+Contributors must observe the [Code Of Conduct](code_of_conduct.md).
