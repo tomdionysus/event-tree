@@ -9,22 +9,22 @@ Event-Tree organizes events in a hierarchical tree structure, making it simple t
 ```
 factory
 ├── security
-│	├── signIn
-│	├── signOut
-│	└── alarm
+│   ├── signIn
+│   ├── signOut
+│   └── alarm
 ├── process
-│	├── production
-│	│	├── start
-│	│	└── stop
-│	└──	assembly
-│		├── start
-│		└── stop
+│   ├── production
+│   │   ├── start
+│   │   └── stop
+│   └── assembly
+│       ├── start
+│       └── stop
 └── timeclock
-	├── shift
-	│	├── starts
-	│	└── ends
-	├── dayStart
-	└── dayEnd
+    ├── shift
+    │   ├── starts
+    │   └── ends
+    ├── dayStart
+    └── dayEnd
 ```
 
 
