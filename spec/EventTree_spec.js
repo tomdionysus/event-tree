@@ -16,7 +16,7 @@ describe('EventTree', () => {
         options2 = { optionTwo: 2 };
     });
 
-    describe('#on', () => {
+    describe('on', () => {
         it('should register an event listener', () => {
             eventTree.on('event1', options1, handler1);
             eventTree.trigger('event1');
@@ -25,7 +25,7 @@ describe('EventTree', () => {
         });
     });
 
-    describe('#unon', () => {
+    describe('unon', () => {
         it('should unregister an event listener', () => {
             eventTree.on('event1', options1, handler1);
             eventTree.unon('event1', handler1);
@@ -35,7 +35,7 @@ describe('EventTree', () => {
         });
     });
 
-    describe('#trigger', () => {
+    describe('trigger', () => {
         it('should trigger an event and call the registered listener', () => {
             eventTree.on('event1', options1, handler1);
             eventTree.trigger('event1');
@@ -53,7 +53,7 @@ describe('EventTree', () => {
         });
     });
 
-    describe('#addEventListener', () => {
+    describe('addEventListener', () => {
         it('should register an event listener', () => {
             eventTree.addEventListener('event1', options1, handler1);
             eventTree.trigger('event1');
@@ -62,7 +62,7 @@ describe('EventTree', () => {
         });
     });
 
-    describe('#removeEventListener', () => {
+    describe('removeEventListener', () => {
         it('should unregister an event listener', () => {
             eventTree.addEventListener('event1', options1, handler1);
             eventTree.removeEventListener('event1', handler1);
@@ -72,7 +72,7 @@ describe('EventTree', () => {
         });
     });
 
-    describe('#dispatch', () => {
+    describe('dispatch', () => {
         it('should trigger an event and call the registered listener', () => {
             eventTree.on('event1', options1, handler1);
             eventTree.dispatch('event1');
@@ -87,6 +87,17 @@ describe('EventTree', () => {
 
             expect(handler1).toHaveBeenCalled();
             expect(handler2).toHaveBeenCalled();
+        });
+    });
+
+    describe('prune', () => {
+        it('should trigger an event and call the registered listener', () => {
+            eventTree.on('event1', options1, handler1);
+            eventTree.unon('event1', handler1);
+
+            eventTree.prune();
+
+            expect(handler1).not.toHaveBeenCalled();
         });
     });
 });

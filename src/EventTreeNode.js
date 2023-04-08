@@ -77,13 +77,13 @@ class EventTreeNode {
     }
 
     // Create node if necessary
-    if (!this._map[eventName]) this._map[eventName] = new EventTreeNode()
+    if (!this._map[eventName]) this._map[eventName] = new EventTreeNode(this)
 
     callback(eventName, rest)
   }
 
   prune () {
-    if (this._map == {} && this._calls.length === 0) return true
+    if (Object.keys(this._map).length === 0 && this._calls.length === 0) return true
 
     const toDelete = []
     for (const sub in this._map) {

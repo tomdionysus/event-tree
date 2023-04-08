@@ -1,6 +1,6 @@
 {
   "name": "@tomdionysus/event-tree",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tree-based event system for JavaScript",
   "main": "index.js",
   "scripts": {
