@@ -40,6 +40,56 @@ Each node in the tree has an "address" (e.g., `factory.process.production.start`
 npm i @tomdionysus/event-tree
 ```
 
+## Examples
+
+### Simple Events
+
+```javascript
+const { EventTree } = require('@tomdionysus/event-tree')
+
+// Create a new event tree
+const myTree = new EventTree()
+
+// Add an event listener
+myTree.on('myEvent', {}, (data) => {
+  console.log(`Received data for 'myEvent': ${data}`)
+})
+
+// Trigger the event
+myTree.trigger('myEvent', 'Hello, world!')
+```
+
+In this example, we create a new EventTree instance and add an event listener for the myEvent event. When the event is triggered with the string 'Hello, world!', the listener will log a message to the console.
+
+### Hierarchical Events
+
+```javascript
+const { EventTree } = require('@tomdionysus/event-tree')
+
+// Create a new event tree
+const myTree = new EventTree()
+
+// Add an event listener for event1
+myTree.on('event1', {}, (data) => {
+  console.log(`Received data for 'event1': ${data}`)
+})
+
+// Add an event listener for event1.event2
+myTree.on('event1.event2', {}, (data) => {
+  console.log(`Received data for 'event1.event2': ${data}`)
+})
+
+// Trigger the event1.event2 event
+myTree.trigger('event1.event2', 'Hello, world from event1.event2!')
+```
+
+In this example, we create a new EventTree instance and add event listeners for two events, event1 and event1.event2, which is a hierarchical event. When the event1.event2 event is triggered, both event listeners will fire and log messages to the console, since event1 is a parent event of event1.event2. Therefore, the output will be:
+
+```
+Received data for 'event1': Hello, world from event1.event2!
+Received data for 'event1.event2': Hello, world from event1.event2!
+```
+
 ## Attaching Event Listeners
 
 To subscribe to an event, use `on` or `addEventListener`:
