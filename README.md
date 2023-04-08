@@ -2,6 +2,7 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/tomdionysus/event-tree/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/tomdionysus/event-tree/tree/main)
 [![Coverage Status](https://coveralls.io/repos/github/tomdionysus/event-tree/badge.svg?branch=main)](https://coveralls.io/github/tomdionysus/event-tree?branch=main)
+[![npm version](https://badge.fury.io/js/@tomdionysus%2Fevent-tree.svg)](https://badge.fury.io/js/@tomdionysus%2Fevent-tree)
 
 event-tree is a JavaScript library designed to facilitate the organization and management of events using a hierarchical tree structure. The library allows developers to easily subscribe and unsubscribe event listeners, as well as trigger events throughout the tree. By organizing events in a tree, the library helps developers visualize and manage event relationships more effectively. event-tree supports adding and removing event listeners, triggering events, and pruning unused nodes, making it an efficient and practical solution for event-driven applications.
 
