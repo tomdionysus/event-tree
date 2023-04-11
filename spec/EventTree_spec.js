@@ -100,4 +100,18 @@ describe('EventTree', () => {
             expect(handler1).not.toHaveBeenCalled();
         });
     });
+
+    describe('BDD - event registered on null should call for all events', () => {
+        it('should trigger an event and call the registered listener', () => {
+            eventTree.on('event1', options1, handler1);
+            eventTree.on('event1.event2', options1, handler2);
+            eventTree.on(null, options1, handler3);
+
+            eventTree.trigger('event1')
+            expect(handler3).toHaveBeenCalledWith({ eventName: 'event1', context: {  }, options: { optionOne: 1 } } );
+
+            eventTree.trigger('event1.event2', { context: 2})
+            expect(handler3).toHaveBeenCalledWith({ eventName: 'event1.event2', context: { context: 2}, options: { optionOne: 1 } } );
+        });
+    });
 });
