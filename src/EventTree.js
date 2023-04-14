@@ -32,6 +32,10 @@ class EventTree {
   prune () {
     this._root.prune()
   }
+
+  listeners (eventName) {
+    return this._root.listeners(eventName)
+  }
 }
 
 module.exports = EventTree

@@ -17,7 +17,7 @@ class EventTreeNode {
 
     this._walk(eventName, (eventName, rest) => {
       this._map[eventName].on(rest, options, handler)
-    })
+    }, true)
   }
 
   unon (eventName, handler) {
@@ -42,7 +42,7 @@ class EventTreeNode {
 
     // Call all registered listeners
     this._calls.forEach((item) => {
-      if (item.fn({ eventName: originalEventName, context: context, options: item.op }) === false) stop = true
+      if (item.fn({ eventName: originalEventName, context, options: item.op }) === false) stop = true
     })
 
     // Return now if propogation stopped
@@ -51,21 +51,12 @@ class EventTreeNode {
     // Return if no more path
     if (eventName === null || eventName.length === 0) return
 
-    // Test for further node path
-    const p = eventName.indexOf('.')
-    let rest = null
-
-    // No further node paths
-    if (p !== -1) {
-      rest = eventName.slice(p + 1)
-      eventName = eventName.slice(0, p)
-    }
-
-    // Drop off end of node tree.
-    if (this._map[eventName]) this._map[eventName].trigger(rest, context, originalEventName)
+    this._walk(eventName, (eventName, rest) => {
+      this._map[eventName].trigger(rest, context, originalEventName)
+    })
   }
 
-  _walk (eventName, callback) {
+  _walk (eventName, callback, create = false) {
     // Test for further node path
     const p = eventName.indexOf('.')
     let rest = null
@@ -77,9 +68,10 @@ class EventTreeNode {
     }
 
     // Create node if necessary
-    if (!this._map[eventName]) this._map[eventName] = new EventTreeNode(this)
+    if (create && !this._map[eventName]) this._map[eventName] = new EventTreeNode(this)
 
-    callback(eventName, rest)
+    // If the event now exists, do the callback with it
+    if (this._map[eventName]) callback(eventName, rest)
   }
 
   prune () {
@@ -96,6 +88,20 @@ class EventTreeNode {
     }
 
     return false
+  }
+
+  listeners (eventName, listeners = []) {
+    // Add all registered listeners
+    this._calls.forEach((item) => listeners.push(item.fn))
+
+    // Return if no more path
+    if (eventName === null || eventName.length === 0) return
+
+    this._walk(eventName, (eventName, rest) => {
+      this._map[eventName].listeners(rest, listeners)
+    })
+
+    return listeners
   }
 }
 

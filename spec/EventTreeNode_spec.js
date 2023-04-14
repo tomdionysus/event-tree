@@ -193,4 +193,60 @@ describe('EventTreeNode', () => {
 			expect(rootNode._map['event2']).toBeInstanceOf(EventTreeNode);
 		});
 	});
+
+	describe('listeners()', () => {
+		let eventTree;
+
+		beforeEach(() => {
+			eventTree = new EventTreeNode();
+		});
+		
+		it('should return an empty array when no listeners are added', () => {
+			expect(eventTree.listeners('event')).toEqual([]);
+		});
+
+		it('should return listeners added to the specific event', () => {
+			const handler1 = () => {};
+			const handler2 = () => {};
+
+			eventTree.on('event', {}, handler1);
+			eventTree.on('event', {}, handler2);
+
+			expect(eventTree.listeners('event')).toEqual([handler1, handler2]);
+		});
+
+		it('should return listeners from ancestor nodes', () => {
+			const handler1 = () => {};
+			const handler2 = () => {};
+
+			eventTree.on('event.subevent', {}, handler1);
+			eventTree.on('event', {}, handler2);
+
+			expect(eventTree.listeners('event.subevent')).toEqual([handler2, handler1]);
+		});
+
+		it('should return listeners in the correct order (ancestors first)', () => {
+			const handler1 = () => {};
+			const handler2 = () => {};
+			const handler3 = () => {};
+
+			eventTree.on('event.subevent', {}, handler1);
+			eventTree.on('event', {}, handler2);
+			eventTree.on('event.subevent.subsubevent', {}, handler3);
+
+			expect(eventTree.listeners('event.subevent.subsubevent')).toEqual([handler2, handler1, handler3]);
+		});
+
+		it('should not return listeners from other branches', () => {
+			const handler1 = () => {};
+			const handler2 = () => {};
+
+			eventTree.on('event1.subevent', {}, handler1);
+			eventTree.on('event2.subevent', {}, handler2);
+
+			expect(eventTree.listeners('event1.subevent')).toEqual([handler1]);
+			expect(eventTree.listeners('event2.subevent')).toEqual([handler2]);
+		});
+	});
+
 });
