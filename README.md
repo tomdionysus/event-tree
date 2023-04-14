@@ -136,6 +136,22 @@ Event listeners are registered on the following events:
 * `factory.security` - returns false
 * `factory.security.signIn` - These handlers will not be called, because a handler on `factory.security` returned false.
 
+The following event's listeners will be called:
+
+* `factory`
+* `factory.security`
+* `factory.security.signIn`
+
+## Listing Events
+
+You can get all the handlers that will be called for an event using `listeners(eventName)`. This will include handlers from ancestor events: 
+
+```javascript
+on('event1', {}}, handler1)
+on('event1.event2', {}}, handler2)
+listeners('event1.event2') === [ handler1, handler2 ]
+```
+
 ## License
 
 This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for details.
